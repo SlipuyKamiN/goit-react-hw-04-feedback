@@ -6,24 +6,30 @@ import {
 import PropTypes from 'prop-types';
 
 export const Statistics = ({
-  feedbackData,
+  good,
+  neutral,
+  bad,
   total,
-  positiveFeedbackPercentageCounter,
+  positiveFeedbackPercentage,
 }) => {
   return (
     <StatsList>
-      {feedbackData.map(item => (
-        <StatsListItem key={item[0]}>
-          {item[0]}: <StatsFeedbackCounter>{item[1]}</StatsFeedbackCounter>
-        </StatsListItem>
-      ))}
+      <StatsListItem key="good">
+        Good: <StatsFeedbackCounter>{good}</StatsFeedbackCounter>
+      </StatsListItem>{' '}
+      <StatsListItem key="neutral">
+        Neutral: <StatsFeedbackCounter>{neutral}</StatsFeedbackCounter>
+      </StatsListItem>{' '}
+      <StatsListItem key="bad">
+        Bad: <StatsFeedbackCounter>{bad}</StatsFeedbackCounter>
+      </StatsListItem>
       <StatsListItem>
         Total: <StatsFeedbackCounter>{total}</StatsFeedbackCounter>
       </StatsListItem>
       <StatsListItem>
         Positive feedback:{' '}
         <StatsFeedbackCounter>
-          {positiveFeedbackPercentageCounter()}%
+          {positiveFeedbackPercentage}%
         </StatsFeedbackCounter>
       </StatsListItem>
     </StatsList>
@@ -31,6 +37,9 @@ export const Statistics = ({
 };
 
 Statistics.propTypes = {
-  feedbackData: PropTypes.array.isRequired,
-  positiveFeedbackPercentageCounter: PropTypes.func.isRequired,
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positiveFeedbackPercentage: PropTypes.string.isRequired,
 };

@@ -10,6 +10,12 @@ export const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const feedbackData = {
+    good,
+    neutral,
+    bad,
+  };
+
   const onLeaveFeedback = event => {
     // Простий варіант, масштабується, але на нього свариться WebPack
     // const feedbackToUpdate = event.target.innerText;
@@ -37,7 +43,7 @@ export const App = () => {
   };
 
   const countTotalFeedback = () => {
-    return [good, neutral, bad].reduce((total, value) => total + value);
+    return Object.values(feedbackData).reduce((total, value) => total + value);
   };
 
   const countPositiveFeedbackPercentage = () => {
@@ -52,7 +58,7 @@ export const App = () => {
         title="Please leave your feedback below"
         children={
           <FeedbackOptions
-            options={['good', 'neutral', 'bad']}
+            options={Object.keys(feedbackData)}
             onLeaveFeedback={onLeaveFeedback}
           />
         }
@@ -62,9 +68,7 @@ export const App = () => {
         children={
           countTotalFeedback() ? (
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
+              feedbackData={Object.entries(feedbackData)}
               total={countTotalFeedback()}
               positiveFeedbackPercentage={countPositiveFeedbackPercentage()}
             />
